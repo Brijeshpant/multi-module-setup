@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+}
+
+def javaProjects = [
+        project(":module-1"),
+        project(":module-2")
+]
+
+configure(javaProjects) {
+    println "Hi from ${project.name}"
+    apply plugin: 'java'
+    println "Hi from inside of ${project.name}"
+    version '1.0'
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+/*allprojects {
+    println "Hi from ${project.name}"
+    apply plugin: 'java'
+    println "Hi from inside of ${project.name}"
+    version '1.0'
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}*/
+
+/*
+subprojects {
+    println "Hi from ${project.name}"
+//    if (['module-1'].contains(project.name)) {
+        apply plugin: 'java'
+        println "Hi from inside of ${project.name}"
+        version '1.0'
+        repositories {
+            mavenCentral()
+        }
+
+        dependencies {
+
+        }
+
+        test {
+            useJUnitPlatform()
+        }
+//    }
+
+}
+*/
+
+
+
+
+
