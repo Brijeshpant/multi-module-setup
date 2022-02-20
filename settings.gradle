@@ -1,4 +1,12 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
 rootProject.name = 'multi-module-setup'
-include 'module-1'
-include 'module-2'
+include 'user-service'
+include 'order-service'
+include 'common-module'
 

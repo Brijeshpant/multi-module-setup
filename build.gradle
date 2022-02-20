@@ -1,71 +1,42 @@
 plugins {
+    id 'org.springframework.boot' version '2.7.0-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
-
-def javaProjects = [
-        project(":module-1"),
-        project(":module-2")
-]
-
-configure(javaProjects) {
-    println "Hi from ${project.name}"
-    apply plugin: 'java'
-    println "Hi from inside of ${project.name}"
-    version '1.0'
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-
-    }
-
-    test {
-        useJUnitPlatform()
-    }
-
-/*allprojects {
-    println "Hi from ${project.name}"
-    apply plugin: 'java'
-    println "Hi from inside of ${project.name}"
-    version '1.0'
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-
-    }
-
-    test {
-        useJUnitPlatform()
-    }
-}*/
-
-/*
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
 subprojects {
-    println "Hi from ${project.name}"
-//    if (['module-1'].contains(project.name)) {
-        apply plugin: 'java'
-        println "Hi from inside of ${project.name}"
-        version '1.0'
-        repositories {
-            mavenCentral()
-        }
-
-        dependencies {
-
-        }
-
-        test {
-            useJUnitPlatform()
-        }
-//    }
 
 }
-*/
+group = 'com.brij'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
 
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+    dependencies {
 
-
-
+//       api project(":common-module")
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+bootJar {
+    enabled=false
+}
