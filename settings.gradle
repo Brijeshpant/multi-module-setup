@@ -1,4 +1,2 @@
 rootProject.name = 'multi-module-setup'
-include 'module-1'
-include 'module-2'
-
+include 'jpa-specifc'
