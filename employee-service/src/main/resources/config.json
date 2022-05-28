@@ -1,0 +1,7 @@
+{
+  "library": "spring-boot",
+  "modelPackage": "com.brij.dto",
+  "apiPackage": "com.brij.controllers",
+  "java8": true,
+  "invokerPackage": "com.brij"
+}

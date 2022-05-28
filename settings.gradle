@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 rootProject.name = 'multi-module-setup'
-include 'user-service'
+include 'employee-service'
 include 'order-service'
 include 'common-module'
 

@@ -1,0 +1,199 @@
+openapi: 3.0.1
+info:
+  title: Employee API
+  description: Api documentation for Employee create/accecc/modification.
+  termsOfService: http://www.brij.com
+  contact:
+    email: testuser@gmail.com
+  license:
+    name: Copyrightlicence
+    url: http://licence.org
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Url for the local env
+  - url: https://stagging-env.com
+    description: Url for the stagging env
+paths:
+  /employees:
+    post:
+      tags:
+        - employee
+        - employees-api-controller
+      summary: API to create employee
+      description: This API will create the employee
+      operationId: createEmployee
+      parameters:
+        - name: auth_key
+          in: header
+          description: auth header
+          required: true
+          schema:
+            type: string
+            example: "auth"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /employees/{id}:
+    put:
+      tags:
+        - employee
+      summary: API to update employee
+      description: This API will update the employee
+      operationId: updateEmployee
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of the employee"
+          schema:
+            type: string
+            example: "EMP-1"
+          required: true
+        - name: auth_key
+          in: header
+          description: auth header
+          required: true
+          schema:
+            type: string
+            example: "auth"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json; charset=utf-8 :
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+        '400':
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    get:
+      tags:
+        - "employee"
+      summary: "Find employee by id"
+      description: "Provide valid employee id"
+      operationId: "getEmployee"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "id of the employee"
+          required: true
+          schema:
+            type: string
+            example: "EMP-1"
+      responses:
+        "200":
+          description: "Employee details"
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponseDTO'
+
+components:
+  schemas:
+    EmployeeRequestDTO:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          example: "EMP-1"
+        name:
+          type: "string"
+          description: "name of the employee"
+          example: "bp"
+        email:
+          type: "string"
+          example: "bp@gmail.com"
+        joiningDate:
+          type: "string"
+          format: "date-time"
+        employeeType:
+          type: "string"
+          description: "Employee type"
+          example: "IT"
+          enum:
+            - "HR"
+            - "ADMIN"
+            - "IT"
+        active:
+          type: "boolean"
+          default: false
+      required:
+        - name
+        - email
+        - id
+        - employeeType
+        - active
+    EmployeeResponseDTO:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          example: "EMP-1"
+        name:
+          type: "string"
+          description: "name of the employee"
+          example: "bp"
+        email:
+          type: "string"
+          example: "bp@gmail.com"
+        joiningDate:
+          type: "string"
+          format: "date-time"
+        employeeType:
+          type: "string"
+          description: "Employee type"
+          example: "IT"
+          enum:
+            - "HR"
+            - "ADMIN"
+            - "IT"
+        active:
+          type: "boolean"
+          default: false
+    ErrorDetails:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code specified by the Application
+          example: '1001'
+        message:
+          type: string
+          description: Error message, explaining the error information
+          example: 'Invalid input name'
+
+
+

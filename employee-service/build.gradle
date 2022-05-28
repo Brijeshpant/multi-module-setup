@@ -1,0 +1,16 @@
+plugins {
+    id 'org.hidetake.swagger.generator' version '2.19.2'
+}
+dependencies {
+    swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'
+}
+swaggerSources {
+    employee {
+        inputFile = file('src/main/resources/employee-api-doc.yaml')
+        code {
+            language = 'spring'
+            configFile = file("src/main/resources/config.json")
+//            components = ['models', 'apis']
+        }
+    }
+}
