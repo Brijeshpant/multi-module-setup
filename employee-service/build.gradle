@@ -1,16 +1,11 @@
-plugins {
-    id 'org.hidetake.swagger.generator' version '2.19.2'
+ext {
+    lombokVersion = '1.18.24'
 }
 dependencies {
-    swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
-swaggerSources {
-    employee {
-        inputFile = file('src/main/resources/employee-api-doc.yaml')
-        code {
-            language = 'spring'
-            configFile = file("src/main/resources/config.json")
-//            components = ['models', 'apis']
-        }
-    }
+test{
+    useJUnitPlatform()
 }
