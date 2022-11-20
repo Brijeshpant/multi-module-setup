@@ -32,20 +32,23 @@ subprojects {
     }
     dependencies {
 
-//       api project(":common-module")
         api 'org.springframework.boot:spring-boot-starter-web'
+        api 'com.google.guava:guava:21.0'
+        api 'org.springframework.boot:spring-boot-starter-validation:2.7.5'
 
         runtimeOnly 'org.postgresql:postgresql'
-//        api 'org.springframework.cloud:spring-cloud-starter-feign:2.0.1.RELEASE'
         api 'org.springframework.boot:spring-boot-starter-data-jpa'
 
         compileOnly 'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+        testImplementation 'org.assertj:assertj-core:3.23.1'
     }
 }
+test {
+    useJUnitPlatform()
+}
 bootJar {
-    enabled=false
+    enabled = false
 }
