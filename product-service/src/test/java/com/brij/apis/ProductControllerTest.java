@@ -5,6 +5,7 @@ import com.brij.dtos.ProductRequestDTO;
 import com.brij.dtos.ProductResponseDTO;
 import com.brij.exceptions.ProductException;
 import com.brij.services.ProductService;
+import com.brij.services.impl.ProductServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.ByteStreams;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ public class ProductControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    ProductService productService;
+    ProductServiceImpl productService;
 
     @Test
     void shouldGetProductDetails() throws Exception {
