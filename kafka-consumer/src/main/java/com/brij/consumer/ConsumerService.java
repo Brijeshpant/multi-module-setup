@@ -10,19 +10,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-@KafkaListener(topics = "${topic_name}")
 public class ConsumerService {
+    private final ConsumerRepo consumerRepo;
 
-    @KafkaHandler()
-    public void consumeMessage(Message message, Acknowledgment acknowledgment) {
-        log.info("Message received {}", message);
-        acknowledgment.acknowledge();
-
+    public ConsumerService(ConsumerRepo repo) {
+        this.consumerRepo = repo;
     }
 
-    @KafkaHandler()
-    public void consumeAnotherMessage(AnotherMessage message, Acknowledgment acknowledgment) {
+    @KafkaListener(topics = "${topic_name}", groupId = "${group_id}")
+    public void consumeMessage(Message message, Acknowledgment acknowledgment) {
         log.info("Message received {}", message);
+        consumerRepo.addUpdateMessages(message);
         acknowledgment.acknowledge();
 
     }

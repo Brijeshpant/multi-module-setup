@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+
 
 @Service
 @Slf4j
@@ -20,20 +23,18 @@ public class ProducerService {
     @Autowired
     KafkaTemplate<String, Message> template;
 
-    public void sendMessage(String key, Message message) {
-        ListenableFuture<SendResult<String, Message>> resultListenableFuture = template.send(topicName, key, message);
-        resultListenableFuture.addCallback(new ListenableFutureCallback<SendResult<String, Message>>() {
-            @Override
-            public void onFailure(Throwable ex) {
-                log.error("Failed  to send message", ex);
-
+    public String sendMessage(String key, Message message) {
+        CompletableFuture<SendResult<String, Message>> completable = template.send(topicName, key, message).completable();
+        completable.whenComplete(((result, error) -> {
+            if (Objects.nonNull(error)) {
+                log.error("Failed  to send message ", error);
+                throw new RuntimeException("Failed to send message");
+            } else {
+                log.info("Successfully sent message {}", result);
             }
+        }));
+        return "Successfully sent message";
 
-            @Override
-            public void onSuccess(SendResult<String, Message> result) {
-                log.info("Successfully send message {}", result);
-            }
-        });
     }
 
 

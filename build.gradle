@@ -21,8 +21,12 @@ configure(javaProjects) {
         api 'org.springframework.boot:spring-boot-starter'
         api 'org.springframework.kafka:spring-kafka'
         api 'com.fasterxml.jackson.core:jackson-databind'
+
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.springframework.kafka:spring-kafka-test'
+
+        testImplementation 'org.testcontainers:kafka:1.18.3'
+
     }
 
     test {
